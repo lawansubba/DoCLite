@@ -37,6 +37,7 @@ DoCLite Installation Manual
 								|----100Mb
 
 2) Settings
+	
 	a) 
 		The default login credentials  are
 		username: test
