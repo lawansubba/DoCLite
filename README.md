@@ -5,7 +5,7 @@ Benchmarking is used to select Virtual Machines (VMs) that can maximise the perf
 
 
 -----------------------------------------------------------
----------DoCLite Installation Manual-----------------------
+DoCLite Installation Manual
 -----------------------------------------------------------
  Docker Container Lightweight Benchmarking Tool (DoCLite) implements a Lightweight and Hybrid benchmarking 
  technique. The lightweight technique uses containers to benchmark a subset of the systems resources. Whereas 
