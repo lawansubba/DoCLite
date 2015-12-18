@@ -1,0 +1,270 @@
+﻿@model DoCLite.Models.AmazonEC2Monitor
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapse1">
+                    Benchmark Settings
+                </a>
+            </h4>
+        </div>
+
+        <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+
+                @using (Html.BeginForm("UserRequest", "Home", FormMethod.Post, new { id = "Home", @class = "form-horizontal" }))
+                { 
+                @*<form class="form-horizontal" id="Home" method="post" action="/Home/UserRequest">*@
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Memory</label>
+                        <div class="col-sm-10">
+                            <input type="range" name="memory" id="memory" min="0" max="5" step="1" value="@DoCLite.Models.AmazonEC2Monitor.memory">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Processor</label>
+                        <div class="col-sm-10">
+                            <input type="range" name="processor" id="processor" min="0" max="5" value="@DoCLite.Models.AmazonEC2Monitor.communication">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Computation</label>
+                        <div class="col-sm-10">
+                            <input type="range" name="computation" id="computation" min="0" max="5" value="@DoCLite.Models.AmazonEC2Monitor.computation">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Storage</label>
+                        <div class="col-sm-10">
+                            <input type="range" name="storage" id="storage" min="0" max="5" value="@DoCLite.Models.AmazonEC2Monitor.storage">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Processing</label>
+                        <select id="processing" name="processing" class="form-control">
+                            <option @if (@DoCLite.Models.AmazonEC2Monitor.sequential) { @Html.Raw("selected")   }> Sequential </option>
+                            <option @if (@DoCLite.Models.AmazonEC2Monitor.sequential.Equals(false)) { @Html.Raw("selected")    }> Parallel </option>s
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Benchmark Memory</label>
+                        <select id="benchmarkMem" name="benchmarkMem" class="form-control">
+                            <option value="100" @if (@DoCLite.Models.AmazonEC2Monitor.benchMem.Equals(100)) { @Html.Raw("selected")    }> 100 Mb</option>
+                            <option value="500" @if (@DoCLite.Models.AmazonEC2Monitor.benchMem.Equals(500)) { @Html.Raw("selected")    }> 500 Mb</option>
+                            <option value="1000" @if (@DoCLite.Models.AmazonEC2Monitor.benchMem.Equals(1000)) { @Html.Raw("selected")    }> 1000 Mb</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Hybrid</label>
+                        <div class="col-sm-10">
+                            <input type="checkbox" name="Hybrid" id="Hybrid" @if (@DoCLite.Models.AmazonEC2Monitor.hybrid) { @Html.Raw("checked")    } />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <input type="submit" class="btn btn-success" value="Generate Rankings" />
+                            <!--<button type="submit" class="btn btn-success">Generate Rankings</button>-->
+                            <input class="btn btn-default btn-info" type="submit" name="pull" id="pull" value="Pull Benchmark Results" />
+                            <input class="btn btn-default btn-primary" type="button" value="Refresh" onclick="window.location.reload()" />
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapse2">
+                    New Instances
+                </a>
+            </h4>
+        </div>
+
+        <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+                <table class="table table-bordered table-hover" style="width:auto">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th colspan="6">LightWeight</th>
+                            <th>HeavyWeight</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th colspan="3">Serial Benchmarks</th>
+                            <th colspan="3">Parallel Benchmarks</th>
+                            <th>Full</th>
+                        </tr>
+                        <tr>
+                            <th>Instance Type</th>
+                            <th>100Mb</th>
+                            <th>500Mb</th>
+                            <th>1000Mb</th>
+                            <th>100Mb</th>
+                            <th>500Mb</th>
+                            <th>1000Mb</th>
+                        </tr>
+
+                    </thead>
+                    @foreach (var i in Model.newInstances)
+                    {
+                        <tr>
+                            <td>@i.InstanceType</td>
+                            <td>
+                                @if (i.seq100Mb)
+                                { <span class="label label-success"> Available </span> }
+                                else
+                                { <span class="label label-danger"> Missing</span> }
+                            </td>
+                            <td>
+                                @if (i.seq500Mb)
+                                { <span class="label label-success"> Available </span> }
+                                else
+                                { <span class="label label-danger"> Missing</span> }
+                            </td>
+                            <td>
+                                @if (i.seq1000Mb)
+                                { <span class="label label-success"> Available </span> }
+                                else
+                                { <span class="label label-danger"> Missing</span> }
+                            </td>
+                            <td>
+                                @if (i.parr100Mb)
+                                { <span class="label label-success"> Available </span> }
+                                else
+                                { <span class="label label-danger"> Missing</span> }
+                            </td>
+                            <td>
+                                @if (i.parr500Mb)
+                                { <span class="label label-success"> Available </span> }
+                                else
+                                { <span class="label label-danger"> Missing</span> }
+                            </td>
+                            <td>
+                                @if (i.parr1000Mb)
+                                { <span class="label label-success"> Available </span> }
+                                else
+                                { <span class="label label-danger"> Missing</span> }
+                            </td>
+                            <td>
+                                @if (i.heavyweight)
+                                { <span class="label label-success"> Available </span> }
+                                else
+                                { <span class="label label-danger"> Missing</span> }
+                            </td>
+
+                        </tr>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapse3">
+                    Old Instances
+                </a>
+            </h4>
+        </div>
+
+        <div id="collapse3" class="panel-collapse collapse">
+            <div class="panel-body">
+                <table class="table table-bordered table-hover" style="width:auto">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th colspan="6">LightWeight</th>
+                            <th>HeavyWeight</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th colspan="3">Serial Benchmarks</th>
+                            <th colspan="3">Parallel Benchmarks</th>
+                            <th>Full</th>
+                        </tr>
+                        <tr>
+                            <th>Instance Type</th>
+                            <th>100Mb</th>
+                            <th>500Mb</th>
+                            <th>1000Mb</th>
+                            <th>100Mb</th>
+                            <th>500Mb</th>
+                            <th>1000Mb</th>
+                        </tr>
+                        @foreach (var i in Model.oldInstances)
+                        {
+                            <tr>
+                                <td>@i.InstanceType</td>
+                                <td>
+                                    @if (i.seq100Mb)
+                                    { <span class="label label-success"> Available </span> }
+                                    else
+                                    { <span class="label label-danger"> Missing</span> }
+                                </td>
+                                <td>
+                                    @if (i.seq500Mb)
+                                    { <span class="label label-success"> Available </span> }
+                                    else
+                                    { <span class="label label-danger"> Missing</span> }
+                                </td>
+                                <td>
+                                    @if (i.seq1000Mb)
+                                    { <span class="label label-success"> Available </span> }
+                                    else
+                                    { <span class="label label-danger"> Missing</span> }
+                                </td>
+                                <td>
+                                    @if (i.parr100Mb)
+                                    { <span class="label label-success"> Available </span> }
+                                    else
+                                    { <span class="label label-danger"> Missing</span> }
+                                </td>
+                                <td>
+                                    @if (i.parr500Mb)
+                                    { <span class="label label-success"> Available </span> }
+                                    else
+                                    { <span class="label label-danger"> Missing</span> }
+                                </td>
+                                <td>
+                                    @if (i.parr1000Mb)
+                                    { <span class="label label-success"> Available </span> }
+                                    else
+                                    { <span class="label label-danger"> Missing</span> }
+                                </td>
+                                <td>
+                                    @if (i.heavyweight)
+                                    { <span class="label label-success"> Available </span> }
+                                    else
+                                    { <span class="label label-danger"> Missing</span> }
+                                </td>
+                            </tr>
+                        }
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+    @*<img src="~/Content/Images/loader.gif" id="loading" style="display:none" />*@
+
+    <script src="~/Scripts/Benchmark.js"></script>
+</div>
+

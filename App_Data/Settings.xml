@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BenchMarkSetting>
+  <cpu>All</cpu>
+  <memory>100</memory>
+  <userdata>
+    #!/bin/bash -ex \n  exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1 \n echo 'Woot!' > home/user-script-output.txt \n python /home/RunBenchmark.py t1.micro 100 0 \n
+  </userdata>
+</BenchMarkSetting>

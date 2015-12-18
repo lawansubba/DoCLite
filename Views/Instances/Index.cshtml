@@ -1,0 +1,104 @@
+﻿@model DoCLite.Models.AllInstances
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm("InstanceRequest", "Instances", FormMethod.Post, new { id = "Instances" }))
+{
+    <div class="text-right">
+        <input class="btn btn-default btn-warning" type="submit" name="stop" id="stop" value="Stop" disabled/>
+        <input class="btn btn-default btn-info" type="submit" name="restart" id="restart" value="Restart" disabled />
+        <input class="btn btn-default btn-danger" type="submit" name="terminate" id="terminate" value="Terminate" disabled />
+        <input class="btn btn-default btn-primary" type="button" value="Refresh List" onclick="window.location.reload()" />
+        @*<input type="button" value="Run Benchmarks" onclick="@("window.location.href='" + @Url.Action("ShowInstances", "Home") + "'");" />*@
+    </div>
+
+    <div>
+        <h2>Active Instances</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Instance Type</th>
+                    <th>Instance Id</th>
+                    <th>Launch Time</th>
+                    <th>State</th>
+                    <th>Image Id</th>
+                    @*<th>State Reason</th>
+                        <th>Tags</th>*@
+                </tr>
+            </thead>
+            @foreach (var i in Model.activeInstances)
+            {
+                <tr>
+                    <td> <input type="checkbox" name="InstanceId" value="@i.InstanceId" /></td>
+                    <td> @i.InstanceType </td>
+                    <td>@i.InstanceId</td>
+                    <td>@i.LaunchTime</td>
+                    <td><span class="label label-success">@i.State.Name</span></td>
+                    <td>@i.ImageId</td>
+
+                    @*@<td>@i.Instances[0].StateReason</td>
+                        <td>@i.Instances[0].Tags</td>*@
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div>
+        <h2>Inactive Instances</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Instance Type</th>
+                    <th>Instance Id</th>
+                    <th>Launch Time</th>
+                    <th>State</th>
+                    <th>Image Id</th>
+                    @*<th>State Reason</th>
+                        <th>Tags</th>*@
+                </tr>
+            </thead>
+            @foreach (var i in Model.inActiveInstances)
+            {
+                <tr>
+                    <td> @if(i.State.Name== "stopped") { <input type="checkbox" name="InstanceId" value="@i.InstanceId" /> }</td>
+                    <td> @i.InstanceType </td>
+                    <td>@i.InstanceId</td>
+                    <td>@i.LaunchTime</td>
+                    <td>
+                        @if (i.State.Name == "terminated")
+                        {
+                            <span class="label label-danger">@i.State.Name</span>
+                        }
+                        else
+                        {
+                            <span class="label label-warning">@i.State.Name</span>
+                        }
+                    
+                    </td>
+                    <td>@i.ImageId</td>
+
+                    @*@<td>@i.Instances[0].StateReason</td>
+                        <td>@i.Instances[0].Tags</td>*@
+                </tr>
+            }
+        </table>
+    </div>
+}
+
+<script type="text/javascript">
+    var checkboxes = $("input[type='checkbox']"),
+    stop = $("#stop");
+    restart = $("#restart");
+    terminate = $("#terminate");
+
+    checkboxes.click(function () {
+        stop.attr("disabled", !checkboxes.is(":checked"));
+        restart.attr("disabled", !checkboxes.is(":checked"));
+        terminate.attr("disabled", !checkboxes.is(":checked"));
+    });
+</script>
+
+<script src="~/Scripts/Benchmark.js"></script>

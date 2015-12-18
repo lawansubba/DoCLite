@@ -1,0 +1,20 @@
+﻿@model System.Collections.Generic.List<DoCLite.BenchmarkController.IVirtualMachine>
+@{
+    ViewBag.Title = "PerformanceRank";
+    int rank = 1;
+}
+
+<h2>PerformanceRank</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Vm Type</th>
+        </tr>
+        @foreach (DoCLite.BenchmarkController.AmazonVm amazonVm in Model)
+        {
+            <tr>
+                <td>@(rank++)</td>
+                <td>@amazonVm.vmType</td>
+            </tr>
+        }

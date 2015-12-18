@@ -1,0 +1,14 @@
+Instance Family   ,Instance Type,Processor Arch,vCPU,Memory (GiB),Instance Storage (GB),EBS-optimized Available,Network Performance,Clock Speed (GHz), Virtualization
+Micro,t1.micro,32-bit or 64-bit,1,0.613,EBS Only,-,Very Low,2.0,pv
+General Purpose,m1.small,32-bit or 64-bit,1,1.7,1 x 160,-,Low,2.00,pv
+General purpose,m1.medium,32-bit or 64-bit,1,3.75,1 x 410,-,Moderate,2.00,pv
+General purpose,m1.large,64-bit,2,7.5,2 x 420,Yes,Moderate,2.00,pv
+General purpose,m1.xlarge,64-bit,4,15,4 x 420,Yes,High,2.00,pv
+Compute optimized,c1.medium,32-bit or 64-bit,2,1.7,1 x 350,-,Moderate,2.00,pv
+Compute optimized,c1.xlarge,64-bit,8,7,4 x 420,Yes,High,2.00,pv
+Compute optimized,cc2.8xlarge,64-bit,32,60.5,4 x 840,-,10 Gigabit,2.6,hvm
+Memory optimized,m2.xlarge,64-bit,2,17.1,1 x 420,-,Moderate,2.0,pv
+Memory optimized,m2.2xlarge,64-bit,4,34.2,1 x 850,Yes,Moderate,2.0,pv
+Memory optimized,m2.4xlarge,64-bit,8,68.4,2 x 840,Yes,High,2.0,pv
+Memory optimized,cr1.8xlarge,64-bit,32,244,2 x 120 SSD,-,10 Gigabit,2.0,hvm
+Storage optimized,hi1.4xlarge,64-bit,16,60.5,"2 x 1024 SSD",-,10 Gigabit,2.4,pv

@@ -1,0 +1,110 @@
+﻿@model DoCLite.Models.LaunchInfo
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm("RunBenchMarks", "Launch", FormMethod.Post, new { id = "Launch" }))
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Launch Settings</h3>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-3 col-sm-3">
+                    <label>Memory</label>
+                    @Html.DropDownList("Memory", Model.lstMemory, new { @class = "form-control" })
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <label>Cpu</label>
+                    @Html.DropDownList("Cpu", Model.lstCpu, new { @class = "form-control" })
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <label>User Data</label> <textarea id="userData" name="userData" class="form-control" style="max-width: none; width: 520px" rows="3" disabled> @Model.userData </textarea>
+                </div>
+   
+            </div>
+            <div>
+                @*<label>Full Benchmark</label> <input type="checkbox" id="full" name="full" />*@
+            </div>
+            <div style="margin-top: 20px; margin-bottom: 20px">
+                <input class="btn  btn-success pull-right" type="submit" id="launch" value="Launch" disabled />
+            </div>
+        </div>
+    </div>
+
+        <div role="tabpanel">
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">New Instances</a></li>
+                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Old Instances</a></li>
+
+            </ul>
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Instance Type</th>
+                                <th>vCPU</th>
+                                <th>Memory (GiB)</th>
+                                <th>Storage (GB)</th>
+                                <th>Network Performance</th>
+                                <th>Physical Processor</th>
+                            </tr>
+                        </thead>
+                        @foreach (var i in Model.instanceInfo.newInstances)
+                        {
+                            <tr>
+                                <td><input type="checkbox" name="InstanceId" value="@i.InstanceType" /></td>
+                                <td>@i.InstanceType</td>
+                                <td>@i.vCPU</td>
+                                <td>@i.Memory</td>
+                                <td>@i.Storage</td>
+                                <td>@i.NetworkingPerformance</td>
+                                <td>@i.PhysicalProcessor</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="profile">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Instance Type</th>
+                                <th>Instance Family</th>
+                                <th>vCPU</th>
+                                <th>Memory (GiB)</th>
+                            </tr>
+                            @foreach (var i in Model.instanceInfo.oldInstances)
+                            {
+                                <tr>
+                                    <td><input type="checkbox" name="InstanceId" value="@i.InstanceType" /></td>
+                                    <td>@i.InstanceType</td>
+                                    <td>@i.InstanceFamily</td>
+                                    <td>@i.vCPU</td>
+                                    <td>@i.Memory</td>
+                                </tr>
+                            }
+                    </table>
+                </div>
+            </div>
+        </div>
+}
+
+<script type="text/javascript">
+
+    var checkboxes = $("input[type='checkbox']"),
+    submitButt = $("#launch");
+
+    checkboxes.click(function () {
+        submitButt.attr("disabled", !checkboxes.is(":checked"));
+    });
+
+</script>
+
+<script src="~/Scripts/Benchmark.js"></script>
