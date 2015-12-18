@@ -12,8 +12,8 @@ DoCLite Installation Manual
  the hybrid technique combines the historic and current benchmark data. When compared with heavyweight 
  benchmarking, both techniques show promising results
 
-
 1) Requirements
+	
 	a) .NET Framework 4.5
 	
 	b) Any version of IIS that supports .NET framework 4.5
