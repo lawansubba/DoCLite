@@ -42,13 +42,13 @@ Benchmarking is used to select Virtual Machines (VMs) that can maximise the perf
 		The credentials can be changed from web.config
 	b) 	
 		The application settings are stored in AppSettings.config
-			<add key="FTPServer" value="54.68.62.95" />                     // The FTP server
-			<add key="FtpUser" value="ftpadmin" />							// The FTP server user name 
-			<add key="FtpPassword" value="123" />							// The FTP Server password
-			<add key="securitygroup" value="launch-wizard-5" />				// The Amazon EC2 security group your user is a member of
-			<add key="keyname" value="" />									// The Amazon EC2 security key name
-			<add key="AccessKey" value="" />								// The Amazon EC2 access key
-			<add key="SecretKey" value="" />    							// The Amazon EC2 secret key
+			<add key="FTPServer" value="54.68.62.95" />    // The FTP server
+			<add key="FtpUser" value="ftpadmin" />	       // The FTP server user name 
+			<add key="FtpPassword" value="123" />	       // The FTP Server password
+			<add key="securitygroup" value="launch-wizard-5" />  // The Amazon EC2 security group your user is a member of
+			<add key="keyname" value="" />		// The Amazon EC2 security key name
+			<add key="AccessKey" value="" />	// The Amazon EC2 access key
+			<add key="SecretKey" value="" />    	// The Amazon EC2 secret key
 			
 3) Result Files
 	The result files contains LMbench results from our benchmark runs.
