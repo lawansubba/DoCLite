@@ -24,15 +24,15 @@ DoCLite Installation Manual
 			|---Benchmark
 				|----Heavy
 					|----Light
-					|-----LMbench
-						   |-----Parr
-								 |----1000MB
-								 |----500Mb
-								 |----100Mb
-						   |-----Seq
-								 |----1000MB
-								 |----500Mb
-								 |----100Mb
+						|-----LMbench
+							|-----Parr
+								|----1000MB
+								|----500Mb
+								|----100Mb
+							|-----Seq
+								|----1000MB
+								|----500Mb
+								|----100Mb
 
 2) Settings
 	a) 
