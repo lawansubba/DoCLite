@@ -4,9 +4,9 @@ Docker Container-based Lightweight Bench-marking on the Cloud
 Benchmarking is used to select Virtual Machines (VMs) that can maximise the performance of an application on the cloud. Current benchmarking methods on the cloud are time consuming and therefore expensive and cannot be used in real-time. The DoCLite (Docker Container-based Lightweight Benchmarking) tool was developed to incorporate lightweight benchmarks, which can benchmark cloud VMs faster than existing methods.
 
 
---------------------------------------------------------------------------------------------------------------
----------------------------------------DoCLite Installation Manual--------------------------------------------
---------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------
+---------DoCLite Installation Manual-----------------------
+-----------------------------------------------------------
  Docker Container Lightweight Benchmarking Tool (DoCLite) implements a Lightweight and Hybrid benchmarking 
  technique. The lightweight technique uses containers to benchmark a subset of the systems resources. Whereas 
  the hybrid technique combines the historic and current benchmark data. When compared with heavyweight 
