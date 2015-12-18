@@ -15,7 +15,9 @@ DoCLite Installation Manual
 
 1) Requirements
 	a) .NET Framework 4.5
+	
 	b) Any version of IIS that supports .NET framework 4.5
+	
 	c) You need a FTP server, which which will act as benchmark repository. The FTP server must have read-write permissions.
 	
 	The folder and file structure on the FTP server must be:
